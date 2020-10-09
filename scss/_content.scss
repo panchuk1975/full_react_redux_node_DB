@@ -1,0 +1,88 @@
+
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "create-note" "current-note";
+}
+
+.current-note {
+    width: 100%;
+}
+
+.note-field,
+.new-field {
+  height: 350px;
+}
+
+.new-field {
+  display: flex;
+}
+
+.section {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+}
+
+.firstName,
+.secondName,
+.textarea,
+.status {
+  text-align: center;
+  height: 30px;
+  width: 300px;
+  border-radius: 5px;
+  background-color: rgb(192, 189, 189);
+  &:hover {
+       background-color: rgb(230, 227, 227);
+  }
+}
+
+.textarea {
+  height: 50px;
+  text-align: left;
+}
+
+.button {
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.notes-block {
+    border: 2px solid black;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0 20px 10px 20px;
+    padding-bottom: 10px;
+    -webkit-box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.75);
+}
+
+.inf {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.text {
+    cursor: pointer;
+    background-color: rgb(197, 194, 194);
+    border-radius: 6px;
+    margin: 5px;
+    border: 2px solid black;
+    &:hover {
+        background-color: rgb(218, 214, 214);
+    }
+}
+
+p {
+    text-indent: 40px;
+}
+
+
+

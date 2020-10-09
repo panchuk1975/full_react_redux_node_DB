@@ -1,0 +1,49 @@
+@import "config";
+@import "app";
+@import "content";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: $primary-color;
+  height: 100%;
+  margin: 0;
+  padding-top: 20px;
+  font-family: "Segoe UI", Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 400;
+  &.lg-heading {
+    font-size: 2rem;
+    @include hoverEffect;
+  }
+  &.sm-heading {
+    margin-bottom: 2rem;
+    padding: 0.2rem 1rem;
+    background: rgba(lighten($primary-color, 5), 0.5);
+  }
+}
+
+.text-first {
+  font-size: 1.5rem;
+  @include hoverEffect;
+}
+
+.text-second {
+  font-size: 1.2rem;
+  color: $first-color;
+  @include hoverEffect;
+}
+
+.note-text {
+  font-size: 1rem;
+  @include hoverEffect;
+}

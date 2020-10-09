@@ -1,0 +1,11 @@
+$primary-color: #b8b6b6;
+$first-color: #000000;
+$secondary-color: #228B22;
+
+@mixin hoverEffect {
+ &:hover {
+     color: $secondary-color;
+     transition: all 1s ease-out;;
+ }
+}
+
