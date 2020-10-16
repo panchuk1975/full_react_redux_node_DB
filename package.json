@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -24,8 +26,12 @@
   },
   "homepage": "https://github.com/panchuk1975/full_react_redux_node_DB#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.3",
     "config": "^3.3.2",
     "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 {
     "port": 5000,
+    "jwtSecret": "correct pasword sicret",
     "mongoUri": "mongodb+srv://vadik:Natasha1978@cluster0.qknly.azure.mongodb.net/full-react-redux-DB?retryWrites=true&w=majority"
 }
