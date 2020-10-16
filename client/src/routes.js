@@ -1,26 +1,26 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { AuthPage } from "./pages/AuthPage";
 import { CreatePage } from "./pages/CreatePage";
 import { DetailPage } from "./pages/DetailPage";
 import { LinksPage } from "./pages/LinksPage";
 
-export function Routes (isAuth) {
+function useRoutes(isAuth) {
   if (isAuth) {
     return (
       <Switch>
-        <Route path="/links" exact>
-          <LinksPage />
-        </Route>
         <Route path="/create" exact>
           <CreatePage />
+        </Route>
+        <Route path="/links" exact>
+          <LinksPage />
         </Route>
         <Route path="/detail/:id">
           <DetailPage />
         </Route>
         <Redirect to="/create" />
       </Switch>
-    )
+    );
   }
   return (
     <Switch>
@@ -29,6 +29,7 @@ export function Routes (isAuth) {
       </Route>
       <Redirect to="/" />
     </Switch>
-  )
-};
- 
+  );
+}
+
+export default useRoutes;
