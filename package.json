@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/panchuk1975/full_react_redux_node_DB#readme",
   "dependencies": {
+    "config": "^3.3.2",
     "express": "^4.17.1",
     "mongoose": "^5.10.9"
   },
