@@ -1,0 +1,11 @@
+
+@import "~materialize-css/dist/css/materialize.min.css";
+@import "hellow.scss";
+
+$body-bg: rgb(145, 144, 144);
+
+* {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(211, 223, 223);
+}
