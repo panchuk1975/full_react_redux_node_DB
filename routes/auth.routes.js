@@ -12,9 +12,8 @@ router.post(
   // validation middleware
   [
     check("email", "Email is not correct!!!").isEmail(),
-    check("passsword", "Minimum passsword langth is 6 symbols!!!").isLength({
-      min: 6,
-    }),
+    //check("password", "Enter password!").exists(),
+    check("password", "Minimum passsword langth is 6 symbols!!!").isLength({  min: 6 }),
   ],
   async (req, res) => {
     try {
@@ -39,7 +38,7 @@ router.post(
       const user = new User({ email, password: hashedPassword });
       //save newUser to DB
       await user.save();
-      res.status(201).json({ message: "User was created!" });
+      res.status(201).json({ message: "New user was created!" });
     } catch (e) {
       res.status(500).json({ mesage: "Something wrong auth register!" });
     }
