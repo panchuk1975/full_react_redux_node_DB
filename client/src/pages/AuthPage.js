@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 
 export const AuthPage = () => {
+  // use Context for auth
+  const auth = useContext(AuthContext);
+  // use message hook to show nessages
   const message = useMessage();
   //use http hook
   const { loading, error, request, clearError } = useHttp();
@@ -23,7 +27,9 @@ export const AuthPage = () => {
   // register request method
   const registerHandler = async () => {
     try {
+      //post requrst to login end get user data for auth 
       const data = await request("/api/auth/register", "POST", { ...form });
+      //console.log("Data", data);
       message(data.message);
     } catch (e) {}
   };
@@ -31,8 +37,10 @@ export const AuthPage = () => {
   const loginHandler = async () => {
     try {
       const data = await request("/api/auth/login", "POST", { ...form });
-      console.log("Data", data);
+      //console.log("Data", data);
       message(data.message);
+       //use Login from authHook for User Authentification
+       auth.login(data.token, data.user) // user!!! not userId!!!!
     } catch (e) {}
   };
   return (

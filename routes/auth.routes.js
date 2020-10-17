@@ -89,7 +89,7 @@ router.post(
       const token = jwt.sign({ userId: user.Id }, config.get("jwtSecret"), {
         expiresIn: "1h",
       });
-      res.json({ token, user: user.id });
+      res.json({ token, user: user.id, message: "Login successfull, welcome to the system!" });
     } catch (e) {
       res.status(500).json({ message: "Something wrong auth login!" });
     }
