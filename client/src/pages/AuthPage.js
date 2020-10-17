@@ -20,6 +20,10 @@ export const AuthPage = () => {
     message(error);
     clearError();
   }, [error, message, clearError]);
+  // update input fields !!!
+  useEffect(() => {
+    window.M.updateTextFields();
+  }, []);
   // event method
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -27,7 +31,7 @@ export const AuthPage = () => {
   // register request method
   const registerHandler = async () => {
     try {
-      //post requrst to login end get user data for auth 
+      //post requrst to login end get user data for auth
       const data = await request("/api/auth/register", "POST", { ...form });
       //console.log("Data", data);
       message(data.message);
@@ -39,8 +43,8 @@ export const AuthPage = () => {
       const data = await request("/api/auth/login", "POST", { ...form });
       //console.log("Data", data);
       message(data.message);
-       //use Login from authHook for User Authentification
-       auth.login(data.token, data.user) // user!!! not userId!!!!
+      //use Login from authHook for User Authentification
+      auth.login(data.token, data.user); // user!!! not userId!!!!
     } catch (e) {}
   };
   return (

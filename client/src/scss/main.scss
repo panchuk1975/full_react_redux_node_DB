@@ -1,5 +1,5 @@
-
-@import "hellow.scss";
+@import "authPage.scss";
+@import "createPage.scss";
 @import "~materialize-css/dist/css/materialize.min.css";
 $body-bg: rgb(145, 144, 144);
 
@@ -83,3 +83,6 @@ select {
   }
 }
 
+body {
+  margin: 0 10px 0 10px;
+}
