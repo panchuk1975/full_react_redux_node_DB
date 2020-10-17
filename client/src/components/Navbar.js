@@ -14,7 +14,7 @@ export const Navbar = () => {
 
   return (
     <nav>
-      <div className="nav-wrapper grey darken-2" style={{ padding: "0 2rem" }}>
+      <div className="nav-wrapper grey darken-3" style={{ padding: "0 2rem" }}>
         <span className="brand-logo">Foras-Lend PCo.</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>

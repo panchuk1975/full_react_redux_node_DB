@@ -1,9 +1,10 @@
 import React from "react";
-
-export const ClientsPage = () => {
+import {ClientsComponent} from "../components/ClientsComponent";
+export const ClientsPage = ({state}) => {
+    let clients = state.clients;
     return (
         <div>
-            <h1>Clients Page</h1>
+           <ClientsComponent clients={clients}/>
         </div>
     )
 }

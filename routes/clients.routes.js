@@ -5,8 +5,10 @@ const router = Router();
 
 router.post("/create", auth, async (req, res) => {
   try {
-    const { officialName } = req.body; // get from request body  
-    const existing = await Client.findOne({ officialName }); // is exist in db
+    // get from request body 
+    const { officialName } = req.body.officialName;  
+     // is exist in db
+    const existing = await Client.findOne({ officialName });
     if (existing) {
       //if link exist send it in respond
       return res.json({ message: "Client is exists!" });
@@ -14,7 +16,6 @@ router.post("/create", auth, async (req, res) => {
     const client = new Client({
       // create new object with all parameters
       ...req.body,
-      owner: req.user.userId,
     });
     // let save
     const getAsk = await client.save();
@@ -24,7 +25,7 @@ router.post("/create", auth, async (req, res) => {
       getAsk,
     });
   } catch (error) {
-    res.status(500).json({ message: "Somsing wrong in create client!" });
+    res.status(500).json({ message: `Server error:${error.message}!` });
   }
 });
 
