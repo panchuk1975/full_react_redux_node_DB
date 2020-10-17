@@ -1,4 +1,4 @@
-const { Schema, model, Typees } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const schema = new Schema({
   projectNumber: { type: Number, required: true, unique: true },
@@ -37,6 +37,7 @@ const schema = new Schema({
   submissionDRRPDate: { type: Date },
   extractDRRPDate: { type: Date },
   projectDoneDate: { type: Date },
+  owner: { type: Types.ObjectId, ref: "User" },
   payments: [{ type: Types.ObjectId, ref: "Payment" }],
   tasks: [{ type: Types.ObjectId, ref: "Task" }],
 });

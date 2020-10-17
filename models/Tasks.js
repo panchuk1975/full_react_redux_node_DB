@@ -1,4 +1,4 @@
-const { Schema, model, Typees } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const schema = new Schema({
   taskNum: { type: Number, required: true },
@@ -9,6 +9,7 @@ const schema = new Schema({
   taskContent: { type: String },
   accepted: { type: Boolean },
   done: { type: Boolean },
+  owner: { type: Types.ObjectId, ref: "Project" },
 });
 
 module.exports = model("Task", schema);

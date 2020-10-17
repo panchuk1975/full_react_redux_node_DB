@@ -1,7 +1,7 @@
-const { Schema, model, Typees } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const schema = new Schema({
-  serialNumber: { type: Number, required: true,  unique: true },
+  serialNumber: { type: Number, required: true, unique: true },
   officialName: { type: String, required: true },
   genСontractNum: { type: String, required: true, unique: true },
   address: { type: String },
@@ -14,7 +14,8 @@ const schema = new Schema({
   respPerson: { type: String },
   signData: { type: Date },
   genСontractTerm: { type: Date },
-   projects: [{ type: Types.ObjectId, ref: "Project" }],
+  owner: { type: Types.ObjectId, ref: "User" },
+  projects: [{ type: Types.ObjectId, ref: "Project" }],
 });
 
 module.exports = model("Client", schema);
