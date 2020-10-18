@@ -10,6 +10,8 @@ import { NavLink } from "react-router-dom";
 export const CreateClient = React.memo(() => {
   const paramsString = document.location.href;
   var addr = new URL(paramsString).pathname;
+  let clientId = addr.split("/", 3)[2];
+  console.log(addr, clientId);
   //Initializide class Size
   let initialCardClass = inputRightClassSize(
     window.innerWidth,
@@ -30,7 +32,9 @@ export const CreateClient = React.memo(() => {
   //Get Client
   let client = {};
   let clients = JSON.parse(localStorage.getItem("clientsArray"));
-  let clientId = JSON.parse(localStorage.getItem("curentClient"));
+   if (!clientId) {
+     //clientId = JSON.parse(localStorage.getItem("curentClient"));
+    }
   if (clients && addr !== "/create") {
     client = clients.find((client) => client._id === clientId);
   }
@@ -125,8 +129,8 @@ export const CreateClient = React.memo(() => {
           style={{ marginBottom: 3, marginTop: 10 }}
         >
           <h5>
-            {addr ==="/create" && "New client"}{" "}
-            {addr !=="/create" && `Client: ${form.officialName}`}
+            {addr === "/create" && "New client"}{" "}
+            {addr !== "/create" && `Client: ${form.officialName}`}
           </h5>
         </div>
 
