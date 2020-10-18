@@ -15,7 +15,7 @@ const schema = new Schema({
   signData: { type: Date },
   genСontractTerm: { type: Date },
   owner: { type: Types.ObjectId, ref: "User" },
-  projects: [{ type: Types.ObjectId, ref: "Project" }],
+  //projects: [{ type: Types.ObjectId, ref: "Project" }],
 });
 
 module.exports = model("Client", schema);

@@ -1,11 +1,10 @@
 import React from "react";
 import {CreateClient} from "../components/CreateClient";
 
-export const CreatePage = ({state}) => {
-    console.log(state)
+export const CreatePage = () => {
     return (
         <div>
-           <CreateClient state={state}/>
+           <CreateClient/>
         </div>
     )
 }

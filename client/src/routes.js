@@ -30,7 +30,7 @@ function useRoutes(isAuth, state) {
           exact
           render={() => <DetailPage state={state} />}
         />
-        <Redirect to="/create" />
+        <Redirect to="/clients" />
       </Switch>
     );
   }

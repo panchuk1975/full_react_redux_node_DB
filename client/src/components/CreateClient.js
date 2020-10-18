@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { inputRightClassSize } from "../hooks/resize.Hook";
 import { NavLink } from "react-router-dom";
 
-export const CreateClient = React.memo(({ state }) => {
+export const CreateClient = React.memo(() => {
   //Initializide class Size
   let initialCardClass = inputRightClassSize(
     window.innerWidth,
@@ -16,9 +16,8 @@ export const CreateClient = React.memo(({ state }) => {
   );
   //uase state for card size
   let [cardClass, setCardClass] = useState(initialCardClass);
-  let clients = state.clients;
-  //-Get ID 
-  let clientId = useParams().id; 
+  //-Get ID
+  let clientId = useParams().id;
   const auth = useContext(AuthContext);
   const message = useMessage();
   const { request, loading, error, clearError } = useHttp();
@@ -27,15 +26,15 @@ export const CreateClient = React.memo(({ state }) => {
     history.push(`/cars/`);
   };
   //Get Client
-  console.log(clients)
-  let client = JSON.parse(localStorage.getItem("Client"));
-  if (clients) {
-    client = clients.find((client) => client._id === clientId);
-  }
-  //-count next 
+  let clients = JSON.parse(localStorage.getItem("clientsArray"));
+  let client = JSON.parse(localStorage.getItem("currentClient"));
+  // if (clients) {
+  //   client = clients.find((client) => client._id === clientId);
+  // }
+  //-count next
   let next = 1;
-  if (clients.length>0){
-     next = clients[clients.length-1].serialNumber+1;
+  if (clients.length > 0) {
+    next = clients[clients.length - 1].serialNumber + 1;
   }
   //-New Client form
   let initialForm = {};
@@ -119,7 +118,7 @@ export const CreateClient = React.memo(({ state }) => {
   //----------------------------JSX---------------------------//
   return (
     <div className="row">
-      <form className="createClient">
+      <div className="createClient">
         <div
           className="col s12 offset-s0 grey darken-3 white-text center-align"
           style={{ marginBottom: 3, marginTop: 10 }}
@@ -131,7 +130,7 @@ export const CreateClient = React.memo(({ state }) => {
         </div>
 
         <div>
-        <div className={`${cardClass} input-field`}>
+          <div className={`${cardClass} input-field`}>
             <input
               placeholder="Порядковий номер"
               type="number"
@@ -275,7 +274,7 @@ export const CreateClient = React.memo(({ state }) => {
             <label htmlFor="genСontractTerm">Термін контракту</label>
           </div>
         </div>
-      </form>
+      </div>
       <form className="col s12">
         {!clientId && (
           <button
