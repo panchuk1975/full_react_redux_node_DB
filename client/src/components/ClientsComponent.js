@@ -2,12 +2,11 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 export const ClientsComponent = React.memo(({ clients }) => {
-   //------------------------History--------------------------//
-   const history = useHistory();
-   //To Client page
-   const prevPage = (client) => {
-     console.log(client)
-     localStorage.setItem("curentClient", JSON.stringify(client));
+  //------------------------History--------------------------//
+  const history = useHistory();
+  //To Client page
+  const prevPage = (client) => {
+    localStorage.setItem("curentClient", JSON.stringify(client));
     history.push(`/create/${client}`);
   };
   //  cars.sort((a, b) => a.governmentCarNumber > b.governmentCarNumber ? 1 : -1);
@@ -22,9 +21,7 @@ export const ClientsComponent = React.memo(({ clients }) => {
       {clients.map((client) => {
         //console.log(client._id)
         return (
-          <div key={client.serialNumber} 
-          onClick={() => prevPage(client._id)} 
-          >
+          <div key={client.serialNumber} onClick={() => prevPage(client._id)}>
             <table className="highlight">
               <tbody>
                 <tr>
@@ -44,9 +41,9 @@ export const ClientsComponent = React.memo(({ clients }) => {
                     <small>{client.contactPerson}</small>
                   </td>
                   <td width="30" className="lightColumn">
-                  <small>{client.telNumber}</small>
-                </td>
-                <td width="150" className="darkColumn">
+                    <small>{client.telNumber}</small>
+                  </td>
+                  <td width="150" className="darkColumn">
                     <small>{client.address}</small>
                   </td>
                 </tr>

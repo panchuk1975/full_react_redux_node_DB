@@ -4,7 +4,6 @@ import { AuthContext } from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import { useMessage } from "../hooks/message.hook";
 import { Loader } from "../components/Loader";
-//import { useParams } from "react-router-dom";
 import { inputRightClassSize } from "../hooks/resize.Hook";
 import { NavLink } from "react-router-dom";
 
@@ -19,7 +18,6 @@ export const CreateClient = React.memo(() => {
   //uase state for card size
   let [cardClass, setCardClass] = useState(initialCardClass);
   //-Get ID
-  //let clientId  = useParams().id;
   const auth = useContext(AuthContext);
   const message = useMessage();
   const { request, loading, error, clearError } = useHttp();
@@ -33,7 +31,6 @@ export const CreateClient = React.memo(() => {
   let client = {};
   let clients = JSON.parse(localStorage.getItem("clientsArray"));
   let clientId = JSON.parse(localStorage.getItem("curentClient"));
-  console.log(clientId);
   if (clients && addr !== "/create") {
     client = clients.find((client) => client._id === clientId);
   }
@@ -44,7 +41,7 @@ export const CreateClient = React.memo(() => {
   }
   //-New Client form
   let initialForm = {};
-  if (clientId) {
+  if (addr !== "/create") {
     initialForm = client;
   } else {
     initialForm = {
@@ -128,8 +125,8 @@ export const CreateClient = React.memo(() => {
           style={{ marginBottom: 3, marginTop: 10 }}
         >
           <h5>
-            {!clientId && "New client"}{" "}
-            {clientId && `Client: ${form.officialName}`}
+            {addr ==="/create" && "New client"}{" "}
+            {addr !=="/create" && `Client: ${form.officialName}`}
           </h5>
         </div>
 
