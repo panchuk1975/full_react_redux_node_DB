@@ -4,11 +4,13 @@ import { AuthContext } from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import { useMessage } from "../hooks/message.hook";
 import { Loader } from "../components/Loader";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 import { inputRightClassSize } from "../hooks/resize.Hook";
 import { NavLink } from "react-router-dom";
 
 export const CreateClient = React.memo(() => {
+  const paramsString = document.location.href;
+  var addr = new URL(paramsString).pathname;
   //Initializide class Size
   let initialCardClass = inputRightClassSize(
     window.innerWidth,
@@ -17,20 +19,24 @@ export const CreateClient = React.memo(() => {
   //uase state for card size
   let [cardClass, setCardClass] = useState(initialCardClass);
   //-Get ID
-  let clientId = useParams().id;
+  //let clientId  = useParams().id;
   const auth = useContext(AuthContext);
   const message = useMessage();
   const { request, loading, error, clearError } = useHttp();
+  //------------------------History--------------------------//
+  const history = useHistory();
   //To Client page
   const prevPage = () => {
-    history.push(`/cars/`);
+    history.push(`/clients/`);
   };
   //Get Client
+  let client = {};
   let clients = JSON.parse(localStorage.getItem("clientsArray"));
-  let client = JSON.parse(localStorage.getItem("currentClient"));
-  // if (clients) {
-  //   client = clients.find((client) => client._id === clientId);
-  // }
+  let clientId = JSON.parse(localStorage.getItem("curentClient"));
+  console.log(clientId);
+  if (clients && addr !== "/create") {
+    client = clients.find((client) => client._id === clientId);
+  }
   //-count next
   let next = 1;
   if (clients.length > 0) {
@@ -67,8 +73,6 @@ export const CreateClient = React.memo(() => {
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-  //------------------------History--------------------------//
-  const history = useHistory();
   //-----------------------Create Car------------------------//
   const pressHandler = async () => {
     try {

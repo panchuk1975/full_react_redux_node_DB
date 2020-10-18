@@ -1,7 +1,15 @@
 import React from "react";
-//import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const ClientsComponent = React.memo(({ clients }) => {
+   //------------------------History--------------------------//
+   const history = useHistory();
+   //To Client page
+   const prevPage = (client) => {
+     console.log(client)
+     localStorage.setItem("curentClient", JSON.stringify(client));
+    history.push(`/create/${client}`);
+  };
   //  cars.sort((a, b) => a.governmentCarNumber > b.governmentCarNumber ? 1 : -1);
   return (
     <div className="row">
@@ -12,9 +20,11 @@ export const ClientsComponent = React.memo(({ clients }) => {
         List of clients
       </div>
       {clients.map((client) => {
+        //console.log(client._id)
         return (
-          <div key={client.serialNumber}>
-            <div></div>
+          <div key={client.serialNumber} 
+          onClick={() => prevPage(client._id)} 
+          >
             <table className="highlight">
               <tbody>
                 <tr>

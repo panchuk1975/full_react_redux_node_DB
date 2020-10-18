@@ -12,7 +12,6 @@ function useRoutes(isAuth, state) {
       <Switch>
         <Route
           path="/create"
-          exact
           render={() => <CreatePage state={state} />}
         />
         <Route
