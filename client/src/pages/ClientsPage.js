@@ -9,10 +9,9 @@ export const ClientsPage = () => {
   const { request, loading, error, clearError } = useHttp();
   const { token } = useContext(AuthContext);
   const message = useMessage();
-  //get previos clients
-  const initialArray = JSON.parse(localStorage.getItem("clientsArray"));
-  //use local state
-  const [clientsArray, setClients] = useState(initialArray);
+  
+  //set clients
+  const [clientsArray, setClients] = useState();
   //Clients download function
   const fetchClients = useCallback(async () => {
     try {
@@ -20,8 +19,6 @@ export const ClientsPage = () => {
         Authorization: `Bearer ${token}`,
       });
       setClients(fetched);
-      //st clients to LS
-      localStorage.setItem("clientsArray", JSON.stringify(fetched));
     } catch (e) {}
   }, [token, request]);
   //UseEffect fo download Clients (like Mount)

@@ -123,11 +123,11 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
       <div onSubmit={() => pressUpdater()} className="createClient">
         <div
           className="col s12 offset-s0 grey darken-3 white-text center-align"
-          style={{ marginBottom: 3, marginTop: 10 }}
+          style={{ marginBottom: 3, marginTop: 10, padding:0 }}
         >
-          <h5>
+          <h6   style={{ marginTop:3, marginBottom: 5 }}>
             {!client && "New client"} {client && `Client: ${form.officialName}`}
-          </h5>
+          </h6>
         </div>
 
         <div>
@@ -318,7 +318,7 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
             }}
             type="submit"
             value="Submit"
-            onClick = {pressUpdater}
+            onClick={pressUpdater}
             disabled={loading}
           >
             Обновити

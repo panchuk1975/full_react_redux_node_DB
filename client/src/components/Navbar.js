@@ -4,21 +4,19 @@ import { AuthContext } from "../context/AuthContext";
 
 export const Navbar = () => {
   const history = useHistory();
-  const auth = useContext(AuthContext);
-
+  const auth = useContext(AuthContext)
   const logoutHandler = (event) => {
     event.preventDefault();
     auth.logout();
     history.push("/");
-  };
-
+  }
   return (
     <nav>
       <div className="nav-wrapper grey darken-3" style={{ padding: "0 2rem" }}>
-        <span className="brand-logo">Foras-Lend PCo.</span>
+        <span className="brand-logo">Foras-Lend</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
-            <NavLink to="/create">Сreate new</NavLink>
+            <NavLink to="/create">New client</NavLink>
           </li>
           <li>
             <NavLink to="/clients">Clients</NavLink>
