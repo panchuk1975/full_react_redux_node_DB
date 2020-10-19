@@ -5,9 +5,9 @@ const router = Router();
 
 router.post("/create", auth, async (req, res) => {
   try {
-    // get from request body 
-    const { officialName } = req.body.officialName;  
-     // is exist in db
+    // get from request body
+    const { officialName } = req.body.officialName;
+    // is exist in db
     const existing = await Client.findOne({ officialName });
     if (existing) {
       //if link exist send it in respond
@@ -22,6 +22,40 @@ router.post("/create", auth, async (req, res) => {
     //if save sucsessfully
     res.status(201).json({
       message: `New client was created succsessfully!`,
+      getAsk,
+    });
+  } catch (error) {
+    res.status(500).json({ message: `Server error:${error.message}!` });
+  }
+});
+
+router.put("/update/:id", auth, async (req, res) => {
+  try {
+    // get from request body
+    const { _id } = req.body;
+    // is exist in db
+    const existing = await Client.findById({ _id });
+    if (!existing) {
+      //if link exist send it in respond
+      return res.json({ message: "Client is not exists!" });
+    }
+    // if client not exist let create new client
+    const client = new Client({
+      ...req.body,
+    });
+    // let save
+    const getAsk = await Client.updateOne(
+      { _id: req.body._id },
+      {
+        $set: {
+          ...req.body,
+        },
+      },
+      { upsert: false }
+    );
+    //if save sucsessfully
+    res.status(201).json({
+      message: `Client was updated succsessfully!`,
       getAsk,
     });
   } catch (error) {
@@ -46,6 +80,15 @@ router.get("/:id", auth, async (req, res) => {
     res.json(client);
   } catch (error) {
     res.status(500).json({ message: "Somsing wrong in get client!" });
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const client = await Client.deleteOne({ _id: req.params.id });
+    return await res.json({ message: "Client was deleted succsessfully!" });
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
 });
 

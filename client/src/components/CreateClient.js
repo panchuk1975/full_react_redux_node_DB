@@ -6,6 +6,7 @@ import { useMessage } from "../hooks/message.hook";
 import { Loader } from "../components/Loader";
 import { inputRightClassSize } from "../hooks/resize.Hook";
 import { NavLink } from "react-router-dom";
+var moment = require("moment");
 
 export const CreateClient = React.memo(({ client, nextNumber }) => {
   let initialCardClass = inputRightClassSize(
@@ -18,7 +19,7 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
   const auth = useContext(AuthContext);
   const message = useMessage();
   const { request, loading, error, clearError } = useHttp();
-  //------------------------History--------------------------//
+  //History
   const history = useHistory();
   //To Client page
   const prevPage = () => {
@@ -37,25 +38,25 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
       personStatus: "",
       contactPerson: "",
       telNumber: "",
-      dateOfTalks: "",
+      dateOfTalks: moment(new Date()).format("YYYY-MM-DD"),
       talksResult: "",
       sourceInfo: "",
       respPerson: "",
-      signData: "",
-      genСontractTerm: "",
+      signData: moment(new Date()).format("YYYY-MM-DD"),
+      genСontractTerm: moment(new Date()).format("YYYY-MM-DD"),
     };
   }
   // form for newClient
   let [form, setForm] = useState({ ...initialForm });
-  //------------------Textarea activation--------------------//
+  //Textarea activation
   useEffect(() => {
     window.M.updateTextFields();
   }, []);
-  //------------------Event change Handler-------------------//
+  //Event change Handler
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-  //-----------------------Create Car------------------------//
+  //Create Client
   const pressHandler = async () => {
     try {
       const data = await request(
@@ -72,11 +73,11 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
       history.push("/clients/");
     }
   };
-  //------------------------Update Car------------------------//
+  //Update Client
   const pressUpdater = async () => {
     try {
       const data = await request(
-        "/api/clients/update",
+        `/api/clients/update/${client._id}`,
         "PUT",
         { ...form },
         {
@@ -84,7 +85,22 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
         }
       );
       message(data.message);
-      history.push(`/clients/${client._id}`);
+      history.push(`/clients`);
+    } catch (e) {}
+  };
+  //Delete Client
+  const deleteHandler = async () => {
+    try {
+      const data = await request(
+        `/api/clients/${client._id}`,
+        "DELETE",
+        { ...form },
+        {
+          Authorization: `Bearer ${auth.token}`,
+        }
+      );
+      message(data.message);
+      history.push(`/clients`);
     } catch (e) {}
   };
   //----------------------Error processing---------------------//
@@ -104,7 +120,7 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
   //----------------------------JSX---------------------------//
   return (
     <div className="row">
-      <div className="createClient">
+      <div onSubmit={() => pressUpdater()} className="createClient">
         <div
           className="col s12 offset-s0 grey darken-3 white-text center-align"
           style={{ marginBottom: 3, marginTop: 10 }}
@@ -198,7 +214,7 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
               type="date"
               className="yellow-input"
               name="dateOfTalks"
-              value={form.dateOfTalks}
+              value={moment(new Date(form.dateOfTalks)).format("YYYY-MM-DD")}
               onChange={changeHandler}
             />
             <label htmlFor="dateOfTalks">Дата переговорів</label>
@@ -242,7 +258,7 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
               type="date"
               className="yellow-input"
               name="signData"
-              value={form.signData}
+              value={moment(new Date(form.signData)).format("YYYY-MM-DD")}
               onChange={changeHandler}
             />
             <label htmlFor="signData">Дата підпису</label>
@@ -253,7 +269,9 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
               type="date"
               className="yellow-input"
               name="genСontractTerm"
-              value={form.genСontractTerm}
+              value={moment(new Date(form.genСontractTerm)).format(
+                "YYYY-MM-DD"
+              )}
               onChange={changeHandler}
             />
             <label htmlFor="genСontractTerm">Термін контракту</label>
@@ -298,7 +316,9 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
               marginLeft: "2%",
               marginRight: "2%",
             }}
-            onClick={pressUpdater}
+            type="submit"
+            value="Submit"
+            onClick = {pressUpdater}
             disabled={loading}
           >
             Обновити
@@ -326,7 +346,7 @@ export const CreateClient = React.memo(({ client, nextNumber }) => {
               marginLeft: "2%",
               marginRight: "2%",
             }}
-            // onClick={deleteHandler}
+            onClick={deleteHandler}
           >
             Видалити
           </button>
