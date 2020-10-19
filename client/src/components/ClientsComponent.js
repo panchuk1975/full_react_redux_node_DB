@@ -2,14 +2,19 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 export const ClientsComponent = React.memo(({ clients }) => {
-  //------------------------History--------------------------//
+  let nextNumber = 1;
+  if (clients.length > 0) {
+    nextNumber = clients[clients.length - 1].serialNumber + 1;
+  }
+  //set next client number to LS
+  localStorage.setItem("nextNumber", JSON.stringify(nextNumber));
+  //History
   const history = useHistory();
   //To Client page
   const prevPage = (client) => {
-    localStorage.setItem("curentClient", JSON.stringify(client));
     history.push(`/create/${client}`);
   };
-  //  cars.sort((a, b) => a.governmentCarNumber > b.governmentCarNumber ? 1 : -1);
+  clients.sort((a, b) => (b.serialNumber > a.serialNumber ? 1 : -1));
   return (
     <div className="row">
       <div

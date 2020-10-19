@@ -7,12 +7,7 @@ import { Loader } from "../components/Loader";
 import { inputRightClassSize } from "../hooks/resize.Hook";
 import { NavLink } from "react-router-dom";
 
-export const CreateClient = React.memo(() => {
-  const paramsString = document.location.href;
-  var addr = new URL(paramsString).pathname;
-  let clientId = addr.split("/", 3)[2];
-  console.log(addr, clientId);
-  //Initializide class Size
+export const CreateClient = React.memo(({ client, nextNumber }) => {
   let initialCardClass = inputRightClassSize(
     window.innerWidth,
     window.screen.width
@@ -29,27 +24,13 @@ export const CreateClient = React.memo(() => {
   const prevPage = () => {
     history.push(`/clients/`);
   };
-  //Get Client
-  let client = {};
-  let clients = JSON.parse(localStorage.getItem("clientsArray"));
-   if (!clientId) {
-     //clientId = JSON.parse(localStorage.getItem("curentClient"));
-    }
-  if (clients && addr !== "/create") {
-    client = clients.find((client) => client._id === clientId);
-  }
-  //-count next
-  let next = 1;
-  if (clients.length > 0) {
-    next = clients[clients.length - 1].serialNumber + 1;
-  }
   //-New Client form
   let initialForm = {};
-  if (addr !== "/create") {
+  if (client) {
     initialForm = client;
   } else {
     initialForm = {
-      serialNumber: next,
+      serialNumber: nextNumber,
       officialName: "",
       genСontractNum: "",
       address: "",
@@ -95,7 +76,7 @@ export const CreateClient = React.memo(() => {
   const pressUpdater = async () => {
     try {
       const data = await request(
-        "/api/car/update",
+        "/api/clients/update",
         "PUT",
         { ...form },
         {
@@ -103,7 +84,7 @@ export const CreateClient = React.memo(() => {
         }
       );
       message(data.message);
-      history.push(`/detail/${clientId}`);
+      history.push(`/clients/${client._id}`);
     } catch (e) {}
   };
   //----------------------Error processing---------------------//
@@ -129,8 +110,7 @@ export const CreateClient = React.memo(() => {
           style={{ marginBottom: 3, marginTop: 10 }}
         >
           <h5>
-            {addr === "/create" && "New client"}{" "}
-            {addr !== "/create" && `Client: ${form.officialName}`}
+            {!client && "New client"} {client && `Client: ${form.officialName}`}
           </h5>
         </div>
 
@@ -281,7 +261,7 @@ export const CreateClient = React.memo(() => {
         </div>
       </div>
       <form className="col s12">
-        {!clientId && (
+        {!client && (
           <button
             className="col s2 offset-s0 grey darken-3 white-text center-align"
             style={{
@@ -296,7 +276,7 @@ export const CreateClient = React.memo(() => {
             Додати
           </button>
         )}
-        {clientId && (
+        {client && (
           <div
             className="col s2 offset-s0 grey darken-0 white-text center-align"
             style={{
@@ -309,7 +289,7 @@ export const CreateClient = React.memo(() => {
             Додати
           </div>
         )}
-        {clientId && (
+        {client && (
           <button
             className="col s2 offset-s0 grey darken-3 white-text center-align"
             style={{
@@ -324,7 +304,7 @@ export const CreateClient = React.memo(() => {
             Обновити
           </button>
         )}
-        {!clientId && (
+        {!client && (
           <div
             className="col s2 offset-s0 grey darken-0 white-text center-align"
             style={{
@@ -337,7 +317,7 @@ export const CreateClient = React.memo(() => {
             Обновити
           </div>
         )}
-        {clientId && (
+        {client && (
           <button
             className="col s2 offset-s0 grey darken-3 white-text center-align"
             style={{
@@ -351,7 +331,7 @@ export const CreateClient = React.memo(() => {
             Видалити
           </button>
         )}
-        {!clientId && (
+        {!client && (
           <div
             className="col s2 offset-s0 grey darken-0 white-text center-align"
             style={{
@@ -365,7 +345,7 @@ export const CreateClient = React.memo(() => {
           </div>
         )}
 
-        {clientId && (
+        {client && (
           <NavLink to={"/list/"}>
             <button
               className="col s2 offset-s0 grey darken-3 white-text center-align"
@@ -380,7 +360,7 @@ export const CreateClient = React.memo(() => {
             </button>
           </NavLink>
         )}
-        {!clientId && (
+        {!client && (
           <div
             className="col s2 offset-s0 grey darken-0 white-text center-align"
             style={{

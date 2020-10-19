@@ -21,8 +21,6 @@ router.post(
     try {
       // validation process create result aray
       const errors = validationResult(req);
-      console.log(req.body)
-      console.log(errors)
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),

@@ -42,7 +42,7 @@ router.get("/", auth, async (req, res) => {
 
 router.get("/:id", auth, async (req, res) => {
   try {
-    const client = await Client.find(req.params.id);
+    const client = await Client.findById(req.params.id);
     res.json(client);
   } catch (error) {
     res.status(500).json({ message: "Somsing wrong in get client!" });
